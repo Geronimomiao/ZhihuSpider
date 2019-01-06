@@ -28,6 +28,7 @@ except:
     print("cookie 未能加载")
 
 # 现接口已失效
+# 通过在请求头 设置 cookie 模拟登录
 # 伪造请求头 有些网站会对 header 做要求
 agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'
 
