@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from urllib import parse
-import re, json
+import re, json, datetime
 from scrapy.loader import ItemLoader
 from ZhihuSpider.items import ZhihuAnswerItem, ZhihuQuestionItem
 
@@ -96,9 +96,8 @@ class ZhihuSpider(scrapy.Spider):
 
     def parse_answer(self, response):
         ans_json = json.loads(response.text)
-        is_end = ans_json["padding"]["is_end"]
-        totals = ans_json["padding"]["totals"]
-        next_url = ans_json["padding"]["next"]
+        is_end = ans_json["paging"]["is_end"]
+        next_url = ans_json["paging"]["next"]
         # 提取 answer 的具体字段
         for answer in ans_json["data"]:
             answer_item = ZhihuAnswerItem()
@@ -110,7 +109,9 @@ class ZhihuSpider(scrapy.Spider):
             answer_item['zhihu_question_id'] = answer['question']['id']
             answer_item['create_time'] = answer['created_time']
             answer_item['update_time'] = answer['updated_time']
+            answer_item['crawl_time'] = datetime.datetime.now()
 
+            yield answer_item
 
 
         # 继续扒 后面的回答
