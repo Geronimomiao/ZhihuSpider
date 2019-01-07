@@ -13,7 +13,7 @@ class ZhihuspiderItem(scrapy.Item):
     # name = scrapy.Field()
     pass
 
-class ZhihuQuestionItem(scrapy.item):
+class ZhihuQuestionItem(scrapy.Item):
     # 知乎问题 item
     zhihu_question_id = scrapy.Field()
     title = scrapy.Field()
@@ -26,7 +26,7 @@ class ZhihuQuestionItem(scrapy.item):
     topics = scrapy.Field()
 
 
-class ZhihuAnswerItem(scrapy.item):
+class ZhihuAnswerItem(scrapy.Item):
     # 知乎回答 item
     zhihu_answer_id = scrapy.Field()
     url = scrapy.Field()
