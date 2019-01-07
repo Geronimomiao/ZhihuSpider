@@ -75,13 +75,15 @@ class ZhihuSpider(scrapy.Spider):
 
     def parse_question(self, response):
         # 处理 question 页面 从页面中提取具体的 question item
-        title = response.css("h1").extract()
+        # title = response.css(".QuestionHeader-title::text").extract()
+        # answer_nums = response.css(".List-headerText span::text").extract()
+        # topics = response.css('.QuestionHeader-topics .Popover div::text').extract()
         item_loader = ItemLoader(item=ZhihuQuestionItem(), response=response)
         item_loader.add_css('title', '.QuestionHeader-title::text')
         item_loader.add_value('url', response.url)
         item_loader.add_value('zhihu_question_id', response.meta.get('question_id', 0))
-        item_loader.add_css('answer_nums', 'a.QuestionMainAction::text')
-        item_loader.add_css('topics', '.QuestionHeader-tags .Popover::text')
+        item_loader.add_css('answer_nums', '.List-headerText span::text')
+        item_loader.add_css('topics', '.QuestionHeader-topics .Popover div::text')
 
         question_item = item_loader.load_item()
         pass
