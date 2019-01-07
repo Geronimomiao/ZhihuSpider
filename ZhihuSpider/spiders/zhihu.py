@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from urllib import parse
-import re
+import re, json
 from scrapy.loader import ItemLoader
 from ZhihuSpider.items import ZhihuAnswerItem, ZhihuQuestionItem
 
@@ -43,6 +43,8 @@ class ZhihuSpider(scrapy.Spider):
         "referer": 'https://www.zhihu.com/signup?next=%2F',
         "User-Agent": agent,
     }
+    # question 的 第一页 answer 起始 url
+    start_answer_url = 'https://www.zhihu.com/api/v4/questions/{0}/answers?include=content,data[*].voteup_count&limit={1}&offset={2}&sort_by=default'
 
     def start_requests(self):
         # scrapy 框架 所以操作都是异步的
@@ -69,25 +71,51 @@ class ZhihuSpider(scrapy.Spider):
                 # dont_filter=True 停用过滤功能 否则无法发起请求
                 # 默认只能请求此处的 allowed_domains = ['https://www.zhihu.com']
                 yield scrapy.Request(request_url, headers=self.headers, meta={"question_id": question_id}, callback=self.parse_question, dont_filter=True)
-            # else:
-                #如果不是question页面则直接进一步跟踪
-                # yield scrapy.Request(url, headers=self.headers, callback=self.parse)
+            else:
+                # 如果不是question页面则直接进一步跟踪
+                # yield scrapy.Request(url, headers=self.headers, callback=self.parse, dont_filter=True, cookies=self.cookies)
+                yield scrapy.Request(url, headers=self.headers, callback=self.parse, dont_filter=True)
 
     def parse_question(self, response):
         # 处理 question 页面 从页面中提取具体的 question item
         # title = response.css(".QuestionHeader-title::text").extract()
         # answer_nums = response.css(".List-headerText span::text").extract()
         # topics = response.css('.QuestionHeader-topics .Popover div::text').extract()
+        question_id = response.meta.get('question_id', 0)
         item_loader = ItemLoader(item=ZhihuQuestionItem(), response=response)
         item_loader.add_css('title', '.QuestionHeader-title::text')
         item_loader.add_value('url', response.url)
-        item_loader.add_value('zhihu_question_id', response.meta.get('question_id', 0))
+        item_loader.add_value('zhihu_question_id', question_id)
         item_loader.add_css('answer_nums', '.List-headerText span::text')
         item_loader.add_css('topics', '.QuestionHeader-topics .Popover div::text')
 
         question_item = item_loader.load_item()
-        pass
+        yield scrapy.Request(self.start_answer_url.format(question_id, 20, 0), headers=self.headers, callback=self.parse_answer, dont_filter=True)
+        yield question_item
 
+
+    def parse_answer(self, response):
+        ans_json = json.loads(response.text)
+        is_end = ans_json["padding"]["is_end"]
+        totals = ans_json["padding"]["totals"]
+        next_url = ans_json["padding"]["next"]
+        # 提取 answer 的具体字段
+        for answer in ans_json["data"]:
+            answer_item = ZhihuAnswerItem()
+            answer_item['zhihu_answer_id'] = answer['id']
+            answer_item['url'] = answer['url']
+            answer_item['author_token'] = answer['author']['url_token']
+            answer_item['voteup_count'] = answer['voteup_count']
+            answer_item['content'] = answer['content']
+            answer_item['zhihu_question_id'] = answer['question']['id']
+            answer_item['create_time'] = answer['created_time']
+            answer_item['update_time'] = answer['updated_timeK˚
+
+
+
+        # 继续扒 后面的回答
+        # if not is_end:
+        #     yield scrapy.Request(next_url, headers=self.headers, callback=self.parse_answer, dont_filter=True)
 
     # def login(self, response):
     #     res = response.text
