@@ -109,7 +109,7 @@ class ZhihuSpider(scrapy.Spider):
             answer_item['content'] = answer['content']
             answer_item['zhihu_question_id'] = answer['question']['id']
             answer_item['create_time'] = answer['created_time']
-            answer_item['update_time'] = answer['updated_timeK˚
+            answer_item['update_time'] = answer['updated_time']
 
 
 
