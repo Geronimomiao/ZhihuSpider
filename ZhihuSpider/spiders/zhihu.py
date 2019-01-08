@@ -17,26 +17,25 @@ class ZhihuSpider(scrapy.Spider):
     agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'
     cookies = {
         '_zap':'36aae2c1-1d0a-4411-9955-1a3f43098840',
-        ' _xsrf':'bXrbf8r0ti5ffzGUsQhv9JlQw3ZuFJeT',
-        ' d_c0':'"AAAil3_1xg6PTm3cJjSz3vITatQ4DbGdN_g=|1546650079"',
-        ' tst':'r',
-        ' q_c1':'858fd43565ab4568a3e0a4a1c563937f|1546650114000|1546650114000',
-        ' capsion_ticket': '"2|1:0|10:1546675505|14:capsion_ticket|44:NGUyMzRjM2QxNTgwNDc1MDkxZDJlYzM4MWE2NjNhYWY=|325df9d74858fd80f4e350baccb860bd933961016cf40cd913dda359794d42bf"',
-        '__gads': 'ID=b5560e541f6f5368:T=1546675490:S=ALNI_MbJUXfCnPkrdOZvVID8EaW07Fegrg',
-        'l_n_c': '1',
-        'n_c': '1',
-        'l_cap_id': '"Mjk3M2Y4MGNlYzUzNGY1N2E2YzQ4ZjAwMWM2MGQ0M2I=|1546771518|8dbeef274759908ad5360fe64cd663f69d8ac434"',
-        'r_cap_id': '"OWZjN2RlOTBjMDlmNGVlYjg0ZWU1OWMyYzk2NjM0MTA=|1546771518|4f50cae0e9c6f954960f4a9f8e8a67160ba92cc4"',
-        'cap_id': '"NDRkYmFlMzVhOTZlNDdkMGFhZjhhZjJiZTY5MTM2ODI=|1546771518|c181720dd1f29b80daeb2157007192ec0078cf31"',
+        '_xsrf':'bXrbf8r0ti5ffzGUsQhv9JlQw3ZuFJeT',
+        'd_c0':'"AAAil3_1xg6PTm3cJjSz3vITatQ4DbGdN_g=|1546650079"',
+        'tst':'r',
+        'q_c1':'858fd43565ab4568a3e0a4a1c563937f|1546650114000|1546650114000',
+        '__gads':'ID=b5560e541f6f5368:T=1546675490:S=ALNI_MbJUXfCnPkrdOZvVID8EaW07Fegrg',
+        'l_n_c':'1',
+        'n_c':'1',
+        '__utmc':'51854390',
+        '__utmv':'51854390.100--|2=registration_date=20180204=1^3=entry_date=20180204=1',
+        'cap_id':'"YzFjNWFhMDlhMTFlNDcxMTlhNmEyNDY2NTQ0Mjg0NjU=|1546920964|bef37a7b5403d16843c24eb4a41e6db0c29fc209"',
+        'r_cap_id':'"ZTI4YTA5MDBlNmQ0NGU3Yjg4ZTAxZTQ3NTNkZTllODI=|1546920964|d2f587704cf7029e83648606b179db1a0b340ca4"',
+        'l_cap_id':'"NzU3MmJkOTVhYzUyNGYwNWJkMWQzMWUwZDFiZTUyNGE=|1546920964|9ddb7fafe39f49c7a3490eef038b4b7fa0f698bf"',
+        'capsion_ticket':'"2|1:0|10:1546920967|14:capsion_ticket|44:OTI3NzY3YWFhMDY1NDM5Yzg5MTNhOWU1MWFmNmZiZTA=|4b347a44f2b648b28a6fbad265a362c3cb780523a7fe264f761c95380b4fd0d3"',
+        'z_c0':'"2|1:0|10:1546920974|4:z_c0|92:Mi4xZGFPcEJ3QUFBQUFBQUNLWGZfWEdEaVlBQUFCZ0FsVk5EbkloWFFCcWp4cFFncTFGVUFxYmhockphbU1vNWEzbkx3|1d4ac2584159adc51d1f5936c0a43ea5483f335897cd2fe301aa679d97aa0d39"',
+        'tgw_l7_route':'f2979fdd289e2265b2f12e4f4a478330',
+        '__utma':'51854390.1862793109.1546908601.1546908601.1546933166.2',
+        '__utmb':'51854390.0.10.1546933166',
+        '__utmz':'51854390.1546933166.2.2.utmcsr=zhihu.com|utmccn=(referral)|utmcmd=referral|utmcct=/',
 
-        ' __utmc':'155987696',
-        ' __utmz':'155987696.1546771604.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)',
-        ' __utmv':'51854390.100--|2=registration_date=20180204=1^3=entry_date=20180204=1',
-        ' __utma':'155987696.1161246750.1546771604.1546774463.1546777081.3',
-        ' z_c0':'"2|1:0|10:1546846117|4:z_c0|92:Mi4xZGFPcEJ3QUFBQUFBQUNLWGZfWEdEaVlBQUFCZ0FsVk5wVTBnWFFDLTB6eDdGcnVsazBUSnAtdHNuQ1Y1UDNKcmFB|5c6982af3717b5389ec1cfd4b31173919f3f6aadec0ceb0a5994b1c0a5e4b5a7"',
-        ' tgw_l7_route':'7bacb9af7224ed68945ce419f4dea76d',
-
-        'capsion_ticket':'"2|1:0|10:1546846110|14:capsion_ticket|44:NWMxODA3NjhjZGZlNGNlNGE3ZWNlNGFlOTUwY2M5NWY=|a7867cec4fbc9c0fe3db93c48a20c5b50447fd373129c9f4e009ef68c5822846"'
     }
     headers = {
         "HOST": "www.zhihu.com",
@@ -71,10 +70,10 @@ class ZhihuSpider(scrapy.Spider):
                 # dont_filter=True 停用过滤功能 否则无法发起请求
                 # 默认只能请求此处的 allowed_domains = ['https://www.zhihu.com']
                 yield scrapy.Request(request_url, headers=self.headers, meta={"question_id": question_id}, callback=self.parse_question, dont_filter=True)
-            else:
-                # 如果不是question页面则直接进一步跟踪
-                # yield scrapy.Request(url, headers=self.headers, callback=self.parse, dont_filter=True, cookies=self.cookies)
-                yield scrapy.Request(url, headers=self.headers, callback=self.parse, dont_filter=True)
+            # else:
+            #     # 如果不是question页面则直接进一步跟踪
+            #     # yield scrapy.Request(url, headers=self.headers, callback=self.parse, dont_filter=True, cookies=self.cookies)
+            #     yield scrapy.Request(url, headers=self.headers, callback=self.parse, dont_filter=True)
 
     def parse_question(self, response):
         # 处理 question 页面 从页面中提取具体的 question item
