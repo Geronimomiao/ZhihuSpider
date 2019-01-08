@@ -7,3 +7,6 @@
 *.iml
 out
 gen
+ZhihuSpider/__pycache__/
+ZhihuSpider/spiders/__pycache__/
+scrapy.cfg
