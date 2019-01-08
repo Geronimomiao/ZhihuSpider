@@ -59,14 +59,18 @@ class ZhihuAnswerItem(scrapy.Item):
         insert_sql = '''
             insert into zhihu_answer (zhihu_answer_id, url, author_token, voteup_count,
              content, zhihu_question_id, create_time, update_time, crawl_time) 
+             ON DUPLICATE KEY update 
+            content=VALUES(content), update_time=VALUES(update_time), crawl_time=VALUES(crawl_time), voteup_count=VALUES(voteup_count)
             values (%s, %s, %s ,%s, %s, %s, %s, %s, %s)
         '''
         # item_loader 传进来的字段 默认是 list
         # zhihu_answer_id = self["zhihu_answer_id"][0]
-        topics = ','.join()
         crawl_time = datetime.datetime.now().strftime(SQL_DATETIME_FORMAT)
+        create_time = datetime.datetime.now().fromtimestamp(self["create_time"])
+        update_time = datetime.datetime.now().fromtimestamp(self["update_time"])
 
-        params = (self["zhihu_answer_id"], self["url"], self["author_token"], self["voteup_count"], self["content"], self["zhihu_question_id"], self["create_time"], self["update_time"], self["crawl_time"])
+
+        params = (self["zhihu_answer_id"], self["url"], self["author_token"], self["voteup_count"], self["content"], self["zhihu_question_id"], create_time, update_time, crawl_time)
         return insert_sql, params
 
 
