@@ -58,10 +58,7 @@ class ZhihuAnswerItem(scrapy.Item):
     def get_insert_sql(self):
         insert_sql = '''
             insert into zhihu_answer (zhihu_answer_id, url, author_token, voteup_count,
-             content, zhihu_question_id, create_time, update_time, crawl_time) 
-             ON DUPLICATE KEY update 
-            content=VALUES(content), update_time=VALUES(update_time), crawl_time=VALUES(crawl_time), voteup_count=VALUES(voteup_count)
-            values (%s, %s, %s ,%s, %s, %s, %s, %s, %s)
+             content, zhihu_question_id, create_time, update_time, crawl_time) values (%s, %s, %s ,%s, %s, %s, %s, %s, %s)
         '''
         # item_loader 传进来的字段 默认是 list
         # zhihu_answer_id = self["zhihu_answer_id"][0]
